@@ -1,0 +1,135 @@
+{% extends "base.html" %} 
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block head_title %} Alumno | {% endblock %}
+
+  <style>
+      {% block style %}
+
+        .jumbotron{
+            background-color: #02060c !important;
+            color: #033865 !important;
+        }
+        .fa-5px{
+            size: 26px !important;
+
+        }     
+
+      {% endblock %}
+  </style>
+
+      {% block jumbotron %}
+      {% if request.user.is_authenticated %}
+          <div class="jumbotron">
+            <div class="container">      
+                <div class='row'>
+                    <div class='col-sm-6'>
+                          <h1>¡Congreso ITMA!</h1>
+                          <br>
+                          <center><img src='{% static "img/con.png" %}'/></center>
+                    </div>
+                    <div class='col-sm-6' >
+                     <!-- <img src='{% static "img/cal.jpg" %}'/><hr/> -->
+                    </div>
+                </div>
+            </div>
+          </div>
+          {% else %}
+          <div class="jumbotron">
+            <div class="container">      
+                <div class='row'>
+                    <div class='col-sm-6'>
+                          <h1>TECNOLOGICO DE MILPA ALTA</h1>
+                          <p>Registrate para estar al tanto de las proximas actividades</p>
+                          <p>
+                              <a class="btn btn-lg btn-primary" href="{% url 'registration_register'%}" role="button">Registrate &raquo;</a>
+                          </p>
+
+
+                    </div>
+                    <div class='col-sm-6' >
+                      <iframe width="560" height="315" src="https://www.youtube.com/embed/2i5AkZ2-7Yk?ecver=1" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+          </div>
+          {% endif %}
+      {% endblock %}
+
+      {{ titulo }}<br/>
+      {{ request.user }}
+      <hr/>
+      <br/>
+
+
+
+
+
+{% block content %}
+    <div class="row">
+      <div class="col-sm-3 col-xs-12 pull-right">
+        {% if not user.is_authenticated %}
+        <p class='lead text-align-center'>Bienvenid@<br/> ¿Te interesa conocer mas sobre el Instituto?
+
+          </p>
+            <form method="POST" action="">{% csrf_token %}
+              {{ el_form|crispy }}
+              <input class='btn btn-primary' type='submit' value='Recibir Informacion'/>
+            </form>
+        {% else %}
+          <p class='lead text-align-center'>{{ request.user }}<br/><br/> <i class="fa fa-hand-peace-o fa-5px" aria-hidden="true"></i>
+     
+            <a class="btn" href="http://sii.itmilpaalta.edu.mx/" role="button"><img src='{% static "img/lalo.jpg" %}'/></a>
+          </p>
+        {% endif %}
+      </div>
+
+
+<!--ONLINE -->
+
+    {% if request.user.is_authenticated %}
+        <div class='col-sm-3'>
+          <p class='lead text-align-center'>Nuevo.
+            <i class="fa fa-bullhorn fa-spin" aria-hidden="true" style="color: #4883FA"></i>
+            <br>
+            <br>
+
+    <a class="btn btn-lg" href="http://online.fliphtml5.com/skjv/sxyy/index.html" role="button"><img src='{% static "img/boton.png" %}'/></a>
+          </p>
+        </div>
+        <div class='col-sm-3'>
+          <p class='lead text-align-center'>Becas.
+          <i class="fa fa-refresh fa-spin fa-1x fa-fw"></i>
+          <br>
+          <br>
+    <a class="btn btn-lg" href="https://becalos.mx/" role="button"><img  src='{% static "img/becalos.jpg" %}'/></a>
+          </p>
+        </div>
+        <div class='col-sm-3'>
+          <p class='lead text-align-center'>Redes.</p>
+    <a class="" href="https://www.facebook.com/" role="button"><img src='{% static "img/facebook.png" %}'/></a>   
+   <a class="" href="https://www.youtube.com/" role="button"><img src='{% static "img/you.png" %}'/></a>  
+        </div>
+    {% else %}
+          
+<!--OFFLINE -->
+                                            
+        <div class='col-sm-3'>
+          <p class='lead text-align-center'>
+            <!--<i class="fa fa-bullhorn fa-spin" aria-hidden="true" style="color: #4883FA"></i>-->
+          </p>
+          <img src='{% static "img/tec.png" %}'/>
+        </div>
+        <div class='col-sm-3'>
+          <p class='lead text-align-center'>
+            <!--<i class="fa fa-refresh fa-spin fa-1x fa-fw"></i>-->
+          </p>
+        </div>
+        <div class='col-sm-3'>
+          <p class='lead text-align-center'></p>
+        </div>
+    {% endif %}
+    </div>
+    <hr/>
+{% endblock %}
